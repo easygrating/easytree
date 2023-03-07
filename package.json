@@ -1,0 +1,36 @@
+{
+  "name": "easytree",
+  "version": "1.0.0",
+  "description": "Tree data structure implementation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/easygrating/easytree.git"
+  },
+  "keywords": [
+    "tree",
+    "data",
+    "structure"
+  ],
+  "contributors": [
+    {
+      "name": "Luis David",
+      "url": "https://github.com/orozco92"
+    },
+    {
+      "name": "Nestor Castro",
+      "url": "https://github.com/nacastroc"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/easygrating/easytree/issues"
+  },
+  "homepage": "https://github.com/easygrating/easytree#readme",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}
