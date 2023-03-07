@@ -1,6 +1,11 @@
 import { sortBy } from 'lodash';
 
 /**
+ * Tree primary key type
+ */
+type TreeId = number | string;
+
+/**
  * Utility class for tree-structured data models.
  */
 export class Tree<T> {
@@ -8,12 +13,12 @@ export class Tree<T> {
     private _parent: Tree<T>;
 
     constructor(
-        private _id: number | string,
+        private _id: TreeId,
         private _data: T,
-        private _children: Tree<T>[]
+        private _children: Tree<T>[] = []
     ) { }
 
-    public get id(): number | string {
+    public get id(): TreeId {
         return this._id;
     }
 
@@ -34,16 +39,16 @@ export class Tree<T> {
         this._children.push(child);
     }
 
-    removeChild(id: number | string) {
+    removeChild(id: TreeId) {
         this._children = this._children.filter(child => child['id'] !== id);
     }
 
     /**
      * Returns a tree's child by performing a deep search using the child's id. 
-     * @param {number | string } id 
+     * @param {TreeId } id 
      * @returns { Tree<T> | null }
      */
-    findChild(id: number | string): Tree<T> | null {
+    findChild(id: TreeId): Tree<T> | null {
         if (this._id === id) return this;
         for (const child of this._children) {
             const found = child.findChild(id);
@@ -80,9 +85,9 @@ export class Tree<T> {
 
     /**
      * Returns a list with all ids of the tree in depth, from the current root to its last child.
-     * @returns {(number | string)[]}
+     * @returns {(TreeId)[]}
      */
-    toListId(): (number | string)[] {
+    toListId(): (TreeId)[] {
         const list = [this._id];
         this._children.forEach((child: Tree<T>) => list.push(...child.toListId()));
         return list;
