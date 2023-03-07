@@ -10,7 +10,7 @@ type TreeId = number | string;
  */
 export class Tree<T> {
 
-    private _parent: Tree<T>;
+    private _parent: Tree<T> | null;
 
     constructor(
         private _id: TreeId,
@@ -26,20 +26,25 @@ export class Tree<T> {
         return this._data;
     }
 
-    public set parent(parent: Tree<T>) {
+    public set parent(parent: Tree<T> | null) {
         this._parent = parent;
     }
 
-    public get parent(): Tree<T> {
+    public get parent(): Tree<T> | null {
         return this._parent;
     }
 
-    addChild(child: Tree<T>) {
+    addChild(child: Tree<T>): void {
+        const exists = this.findChild(child.id);
+        if (!!exists) return;
         child.parent = this;
         this._children.push(child);
     }
 
     removeChild(id: TreeId) {
+        const child = this.findChild(id);
+        if (!child) return;
+        child.parent = null;
         this._children = this._children.filter(child => child['id'] !== id);
     }
 
@@ -92,7 +97,5 @@ export class Tree<T> {
         this._children.forEach((child: Tree<T>) => list.push(...child.toListId()));
         return list;
     }
-
-
 
 }
