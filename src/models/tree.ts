@@ -1,16 +1,12 @@
 import { sortBy } from 'lodash';
-
-/**
- * Tree primary key type
- */
-type TreeId = number | string;
+import { TreeId } from '../types/tree.type';
 
 /**
  * Utility class for tree-structured data models.
  */
 export class Tree<T> {
 
-    private _parent: Tree<T> | null;
+    private _parent: Tree<T> | null = null;
 
     constructor(
         private _id: TreeId,
@@ -68,12 +64,12 @@ export class Tree<T> {
      * @param sortFunction An optional sorting function
      * @returns {{}[]}
      */
-    toList(keys: string[], sortFunction?: Function): {}[] {
+    toList(keys: string[] = null, sortFunction?: Function): {}[] {
         let data = {};
         if (!!keys) {
             keys.forEach(key => {
-                if (this.hasOwnProperty(key))
-                    data[key] = this[key];
+                if (this._data.hasOwnProperty(key))
+                    data[key] = this._data[key];
             })
         } else {
             data = Object.assign({}, this._data);
