@@ -1,2 +1,3 @@
 # easytree
-Tree datastructure implementation
+
+Tree data structure implementation
