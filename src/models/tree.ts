@@ -30,6 +30,12 @@ export class Tree<T> {
         return this._parent;
     }
 
+    /**
+     * Adds a child node to the tree, and sets this tree as the parent of the child.
+     * If the child is already in the tree, returns null.
+     * @param child child instance to add
+     * @returns {void}
+     */
     addChild(child: Tree<T>): void {
         const exists = this.findChild(child.id);
         if (!!exists) return;
@@ -37,6 +43,11 @@ export class Tree<T> {
         this._children.push(child);
     }
 
+    /**
+     * Removes the child from the tree, and sets the parent to null.
+     * @param id id of the child to remove
+     * @returns {void}
+     */
     removeChild(id: TreeId) {
         const child = this.findChild(id);
         if (!child) return;
@@ -64,7 +75,7 @@ export class Tree<T> {
      * @param sortFunction An optional sorting function
      * @returns {{}[]}
      */
-    toList(keys: string[] = null, sortFunction?: Function): {}[] {
+    toList(keys?: string[], sortFunction?: Function): {}[] {
         let data = {};
         if (!!keys) {
             keys.forEach(key => {
@@ -92,6 +103,26 @@ export class Tree<T> {
         const list = [this._id];
         this._children.forEach((child: Tree<T>) => list.push(...child.toListId()));
         return list;
+    }
+
+    /**
+     * Returns a list of all children's data (the root is not included).
+     * @param {string} keys 
+     * @returns {{}[]}
+     */
+    getChildList(keys?: string[]) {
+        return this._children.map(child => {
+            let data = {}
+            if (!!keys) {
+                keys.forEach(item => {
+                    if (child.data.hasOwnProperty(item))
+                        data[item] = child.data[item]
+                })
+            } else {
+                data = child.data
+            }
+            return data
+        })
     }
 
 }
