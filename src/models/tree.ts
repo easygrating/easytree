@@ -48,7 +48,7 @@ export class Tree<T> {
      * @param id id of the child to remove
      * @returns {void}
      */
-    removeChild(id: TreeId) {
+    removeChild(id: TreeId): void {
         const child = this.findChild(id);
         if (!child) return;
         child.parent = null;
@@ -73,9 +73,9 @@ export class Tree<T> {
      * Returns the tree nodes in a list structure.
      * @param keys Keys | attributes of the resulting list object.
      * @param sortFunction An optional sorting function
-     * @returns {{}[]}
+     * @returns {unknown[]}
      */
-    toList(keys?: string[], sortFunction?: Function): {}[] {
+    toList(keys?: string[], sortFunction?: Function): unknown[] {
         let data = {};
         if (!!keys) {
             keys.forEach(key => {
@@ -108,9 +108,9 @@ export class Tree<T> {
     /**
      * Returns a list of all children's data (the root is not included).
      * @param {string} keys 
-     * @returns {{}[]}
+     * @returns {unknown[]}
      */
-    getChildList(keys?: string[]) {
+    getChildList(keys?: string[]): unknown[] {
         return this._children.map(child => {
             let data = {}
             if (!!keys) {
