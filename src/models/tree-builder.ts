@@ -1,7 +1,7 @@
 import { Tree } from "./tree";
 
 /**
- * Tree builder configutarion options
+ * Tree builder configuration options
  */
 export interface TreeBuilderConfig {
   /**
@@ -23,7 +23,7 @@ export interface TreeBuilderConfig {
  */
 export interface TreeBuilderInterface<E = unknown> {
   /**
-   * Build a Tree with from given options
+   * Build a Tree from given options
    * @param opts options to apply
    * @param data additional parameters
    * @returns resulting tree
