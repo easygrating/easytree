@@ -2,7 +2,7 @@ name: Publish Package
 
 on:
   push:
-    branches: [release]
+    branches: ["release"]
 
 jobs:
   build:
@@ -29,7 +29,7 @@ jobs:
         with:
           node-version: 18
           registry-url: https://registry.npmjs.org/
-          scope: "easygrating"
+          scope: "@easygrating"
       - run: npm ci
         name: Install packages
       - run: npm publish
