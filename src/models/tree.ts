@@ -107,8 +107,8 @@ export class Tree<T> {
 
     /**
      * Returns a list of all children's data (the root is not included).
-     * @param {string} keys 
-     * @returns {unknown[]}
+     * @param {string} keys the attributes of the node's data that you want to include in the response list
+     * @returns {unknown[]} the list of child nodes (with all attributes or only those specified on keys param)
      */
     getChildList(keys?: string[]): unknown[] {
         return this._children.map(child => {
