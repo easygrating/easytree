@@ -29,6 +29,10 @@ export class Tree<T> {
     return this._parent;
   }
 
+  public get children(): Tree<T>[] {
+    return this._children;
+  }
+
   /**
    * Adds a child node to the tree, and sets this tree as the parent of the child.
    * If the child is already in the tree, returns false, otherwise true.
@@ -63,8 +67,9 @@ export class Tree<T> {
   removeChild(id: TreeId): void {
     const child = this.findNode(id);
     if (!child) return;
+    const parent = child.parent;
+    parent._children = parent._children.filter((child) => child.id !== id);
     child.parent = null;
-    this._children = this._children.filter((child) => child.id !== id);
   }
 
   /**
