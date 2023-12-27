@@ -51,13 +51,15 @@ describe("Test tree factory", () => {
 
   test("2 is 3's child ", () => {
     const tree = treeBuilder.buildTree({ fk: "fk" }, list);
-    const node = tree.findChild(2);
-    expect(node.parent.id).toEqual(3);
+    const node = tree.findNode(2);
+    expect(node).not.toBe(null);
+    expect(node?.parent?.id).toEqual(3);
   });
 
   test("2 is leaf ", () => {
     const tree = treeBuilder.buildTree({ fk: "fk" }, list);
-    const node = tree.findChild(2);
-    expect(node.getChildList()).toHaveLength(0);
+    const node = tree.findNode(2);
+    expect(node).not.toBe(null);
+    expect(node?.getChildList()).toHaveLength(0);
   });
 });
