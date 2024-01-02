@@ -15,6 +15,7 @@ npm install @easygrating/easytree
 - Build a `Tree<T>` data structure using user's defined options (define by library interfaces).
 - Provide a `Tree<T>` class with several utility methods to work with a tree data structure.
 - Transform an array of objects into a tree data structure.
+- Returns the tree's data in a JSON object format.
 
 ## Creating the Tree 🌳
 
@@ -55,6 +56,9 @@ function useTree(){
 
   // Returns the list of ids of the tree nodes
   tree.getListId(); // return [1, 2, 3, 4, 5, 7]
+
+  // Returns a JSON object with the tree data
+  const inJSON = tree.toJSON();
 
 }
 ```
