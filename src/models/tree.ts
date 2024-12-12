@@ -6,6 +6,8 @@ import { TreeId } from "../types/tree.type";
  */
 export class Tree<T> {
   private _parent: Tree<T> | null = null;
+  private _size: number = 1;
+  private _level: number = 0;
 
   constructor(
     private _id: TreeId,
@@ -29,6 +31,18 @@ export class Tree<T> {
     return this._parent;
   }
 
+  private set level(level: number) {
+    this._level = level;
+  }
+
+  public get level(): number {
+    return this._level;
+  }
+
+  public get size(): number {
+    return this._size;
+  }
+
   public get children(): Tree<T>[] {
     return this._children;
   }
@@ -43,6 +57,8 @@ export class Tree<T> {
     const exists = this.findNode(child.id);
     if (!!exists) return false;
     child.parent = this;
+    child.level = this._level + 1;
+    this._size++;
     return !!this._children.push(child);
   }
 
@@ -70,6 +86,7 @@ export class Tree<T> {
     const parent = child.parent;
     parent._children = parent._children.filter((child) => child.id !== id);
     child.parent = null;
+    this._size--;
   }
 
   /**
