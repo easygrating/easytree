@@ -1,6 +1,6 @@
 import { Tree } from "../models/tree";
-import * as _ from "lodash";
 import { TreeBuilderConfig, TreeBuilderInterface } from "../models/tree-builder";
+import { chain } from "lodash";
 /**
  * Converts a list into a tree
  */
@@ -15,11 +15,11 @@ export class ListTreeBuilder<E = unknown> implements TreeBuilderInterface<E> {
     if (!opts.fk || "string" !== typeof opts.fk) {
       throw new Error("foreign (opts.fk) key must be provided");
     }
-    let root;
-    const list = _.chain(data)
+    let root: Tree<E>;
+    const list = chain(data)
       .map((item) => new Tree(item[idKey], item))
       .value();
-    const idGroup = _.chain(list)
+    const idGroup = chain(list)
       .groupBy(idKey)
       .mapValues((item) => item[0])
       .value();

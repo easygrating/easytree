@@ -32,6 +32,24 @@ describe("Test Tree", () => {
     expect(tree.parent).toBeNull();
   });
 
+  test("get the right tree size", () => {
+    expect(tree.size).toEqual(1);
+    tree.addChild(child1);
+    expect(tree.size).toEqual(2);
+    tree.removeChild(child1.id);
+    expect(tree.size).toEqual(1);
+  });
+
+  test("get the right level of the node in the tree", () => {
+    expect(tree.level).toEqual(0);
+    expect(child1.level).toEqual(0);
+    tree.addChild(child1);
+    expect(child1.level).toEqual(1);
+    expect(tree.level).toEqual(0);
+    tree.removeChild(child1.id);
+    expect(tree.level).toEqual(0);
+  });
+
   test("a child can be added", () => {
     tree.addChild(child1);
     expect(child1.parent).not.toBeNull();
@@ -51,6 +69,7 @@ describe("Test Tree", () => {
     const found = tree.findNode(2);
     const notExists = tree.findNode(-1);
     expect(found?.id).toEqual(2);
+    expect(found?.size).toEqual(1);
     expect(notExists).toBeNull();
   });
 
@@ -65,7 +84,7 @@ describe("Test Tree", () => {
     expect(newborn?.data).toEqual({ prop1: "fourth", prop2: "4" });
   });
 
-  test("a child cannot be added if target node doesnt exists", () => {
+  test("a child cannot be added if target node doesn't exists", () => {
     tree.addChild(child1);
     tree.addChild(child2);
     child2.addChild(child3);
@@ -87,7 +106,7 @@ describe("Test Tree", () => {
     expect(child3.parent).toBeNull();
   });
 
-  test("a child cannot be removed if it does not exist", () => {
+  test("a child cannot be removed if it doesn't exist", () => {
     tree.removeChild(2);
     const ids = tree.toListId();
     expect(ids.length).toBe(1);
