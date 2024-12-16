@@ -25,7 +25,7 @@ npm install @easygrating/easytree
 
 ```typescript
 // Import required functions
-import { ListTreeBuilder, TreeBuilderConfig }  from '@easygrating/easytree';
+import { ListTreeBuilder, TreeBuilderConfig, Tree }  from '@easygrating/easytree';
 
 function useTree(){
   const list = [
@@ -41,21 +41,31 @@ function useTree(){
    const treeConfigOption: TreeBuilderConfig = { fk: "fk" };
    const tree = treeBuilder.buildTree(treeConfigOption, list);
 
-  // Find a child node  in the tree by the id
-  const fifthChild = tree.findChild(5) // return { id: 5, name: "fifth", fk: 4 }
+   // Get the size of the tree (amount of nodes)
+   const treeSize = tree.size; // 6
+
+  // Find a child node in the tree by the id
+  const fifthChild = tree.findNode(5); // { id: 5, name: "fifth", fk: 4 }
+
+  // Get the level of a node in the tree
+  const fifthChildLevel = fifthChild.level; // 2
 
   // Add a new node to the tree
   const newChild = new Tree(7, { id: 7, name: "seventh", email: "seventh@gmail.com" }, []);
   fifthChild.addChild(newChild);
 
   // Returns the list of childs whit the attributes passed on the keys params
-  fifthChild.getChildList(['id', 'email']); // return [{ id: 7, email: "seventh@gmail.com" }]
+  fifthChild.getChildList(['id', 'email']); // [{ id: 7, email: "seventh@gmail.com" }]
 
   // Remove a node from the tree
-  tree.remove(6);
+  tree.removeChild(6);
 
   // Returns the list of ids of the tree nodes
-  tree.getListId(); // return [1, 2, 3, 4, 5, 7]
+  tree.getListId(); // [1, 2, 3, 4, 5, 7]
+
+   // Add a new node to the tree as child of an existing node by id 
+  const newChildOfSeventh = new Tree(8, { id: 8, name: "eighth", email: "eighth@gmail.com" }, []);
+  tree.addChildAt(newChildOfSeventh, 7);
 
   // Returns a JSON object with the tree data
   const inJSON = tree.toJSON();
